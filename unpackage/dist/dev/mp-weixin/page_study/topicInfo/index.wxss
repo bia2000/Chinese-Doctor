@@ -1,0 +1,20 @@
+
+.topicInfo.data-v-beacc050 {
+  /* margin: 0 auto; */
+  /* text-align: center; */
+  width: 550rpx;
+  height: 400rpx;
+  margin: 30rpx auto;
+  padding: 20rpx;
+  font-size: 27rpx;
+  text-indent: 2em;
+
+  box-shadow: 10rpx 10rpx 5rpx #888888;
+  background-color: #fff;
+}
+.title.data-v-beacc050 {
+  text-align: center;
+  font-weight: 700;
+  font-size: 40rpx;
+}
+

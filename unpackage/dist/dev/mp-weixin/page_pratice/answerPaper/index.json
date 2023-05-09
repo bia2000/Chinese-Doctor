@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "",
+  "usingComponents": {
+    "answer-page": "/components/answerPage/index"
+  }
+}

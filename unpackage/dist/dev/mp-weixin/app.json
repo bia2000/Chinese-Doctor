@@ -1,0 +1,107 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/init/index",
+    "pages/study/study",
+    "pages/pratice/pratice",
+    "pages/chat/chat",
+    "pages/mine/mine"
+  ],
+  "subPackages": [
+    {
+      "root": "pageCity",
+      "pages": [
+        "login/index",
+        "forgotPassword/index",
+        "register/index",
+        "guide/index",
+        "questionnaire/index",
+        "articleDetial/index"
+      ],
+      "name": "pageCity"
+    },
+    {
+      "root": "page_study",
+      "pages": [
+        "textList/index",
+        "textDetail/index",
+        "dialogDetail/index",
+        "topicInfo/index",
+        "resourceDetail/index",
+        "dialog/index"
+      ],
+      "name": "page_study"
+    },
+    {
+      "root": "page_pratice",
+      "pages": [
+        "paper/index",
+        "answerPaper/index",
+        "specialAnswers/index",
+        "matchPaper/index",
+        "paperGuide/index",
+        "zujuanDetail/index"
+      ],
+      "name": "page_pratice"
+    },
+    {
+      "root": "page_mine",
+      "pages": [
+        "userInfo/index",
+        "sign/index",
+        "errorSet/index",
+        "learningRecord/index",
+        "inform/index",
+        "informDetail/index",
+        "point/index",
+        "resultAnalysis/index",
+        "resultDetail/index",
+        "abilityPortrait/index",
+        "favorites/index"
+      ],
+      "name": "page_mine"
+    }
+  ],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  },
+  "tabBar": {
+    "backgroundColor": "#E7F4F2",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "pageCity/static/images/shouye.png",
+        "selectedIconPath": "pageCity/static/images/shouye-h.png"
+      },
+      {
+        "pagePath": "pages/study/study",
+        "text": "学习",
+        "iconPath": "pageCity/static/images/shuben.png",
+        "selectedIconPath": "pageCity/static/images/shuben-h.png"
+      },
+      {
+        "pagePath": "pages/pratice/pratice",
+        "text": "练习",
+        "iconPath": "pageCity/static/images/lianxi.png",
+        "selectedIconPath": "pageCity/static/images/lianxi-h.png"
+      },
+      {
+        "pagePath": "pages/chat/chat",
+        "text": "中文医学圈",
+        "iconPath": "pageCity/static/images/pengyouquan.png",
+        "selectedIconPath": "pageCity/static/images/pengyouquan-h.png"
+      },
+      {
+        "pagePath": "pages/mine/mine",
+        "text": "我的",
+        "iconPath": "pageCity/static/images/wode.png",
+        "selectedIconPath": "pageCity/static/images/wode-h.png"
+      }
+    ]
+  },
+  "usingComponents": {}
+}

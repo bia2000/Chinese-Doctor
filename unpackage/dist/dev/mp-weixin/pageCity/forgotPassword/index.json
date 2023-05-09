@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "找回密码",
+  "usingComponents": {
+    "u-input": "/node-modules/uview-ui/components/u-input/u-input",
+    "u-code": "/node-modules/uview-ui/components/u-code/u-code",
+    "u-button": "/node-modules/uview-ui/components/u-button/u-button"
+  }
+}

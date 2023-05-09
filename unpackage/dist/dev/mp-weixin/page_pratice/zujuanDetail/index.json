@@ -1,0 +1,13 @@
+{
+  "navigationBarTitleText": "",
+  "usingComponents": {
+    "u-popup": "/node-modules/uview-ui/components/u-popup/u-popup",
+    "u-subsection": "/node-modules/uview-ui/components/u-subsection/u-subsection",
+    "u-cell-group": "/node-modules/uview-ui/components/u-cell-group/u-cell-group",
+    "u-cell": "/node-modules/uview-ui/components/u-cell/u-cell",
+    "u-button": "/node-modules/uview-ui/components/u-button/u-button",
+    "u-modal": "/node-modules/uview-ui/components/u-modal/u-modal",
+    "audio-view": "/components/audioView/index",
+    "echarts": "/components/uni-ec-canvas/uni-ec-canvas"
+  }
+}

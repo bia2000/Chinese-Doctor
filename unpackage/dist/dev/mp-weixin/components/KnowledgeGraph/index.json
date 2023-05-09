@@ -1,0 +1,7 @@
+{
+  "component": true,
+  "usingComponents": {
+    "u-search": "/node-modules/uview-ui/components/u-search/u-search",
+    "echarts": "/components/uni-ec-canvas/uni-ec-canvas"
+  }
+}

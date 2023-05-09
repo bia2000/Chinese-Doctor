@@ -1,0 +1,1 @@
+<view class="resultDetail data-v-461b87eb"><view class="data-v-461b87eb"><view class="data-v-461b87eb">{{'得分：'+paper.user_score+"/"+paper.score_paper+''}}</view><view class="data-v-461b87eb">{{'做题时间：'+paper.time+''}}</view></view><view class="data-v-461b87eb">{{score_type+''}}</view></view>

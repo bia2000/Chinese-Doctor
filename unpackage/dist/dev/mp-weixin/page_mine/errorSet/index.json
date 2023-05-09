@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "错题集",
+  "usingComponents": {
+    "answer-page": "/components/answerPage/index"
+  }
+}

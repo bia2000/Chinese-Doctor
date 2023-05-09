@@ -1,0 +1,301 @@
+{
+	"easycom": {
+		"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue",
+		"^uni-(.*)": "components/uni-$1/uni-$1.vue"
+	},
+	"tabBar": {
+		"backgroundColor": "#E7F4F2",
+		"list": [
+			{
+				"pagePath": "pages/index/index",
+				"text": "首页",
+				"iconPath": "pageCity/static/images/shouye.png",
+				"selectedIconPath": "pageCity/static/images/shouye-h.png"
+			},
+			{
+				"pagePath": "pages/study/study",
+				"text": "学习",
+				"iconPath": "pageCity/static/images/shuben.png",
+				"selectedIconPath": "pageCity/static/images/shuben-h.png"
+			},
+			{
+				"pagePath": "pages/pratice/pratice",
+				"text": "练习",
+				"iconPath": "pageCity/static/images/lianxi.png",
+				"selectedIconPath": "pageCity/static/images/lianxi-h.png"
+			},
+			{
+				"pagePath": "pages/chat/chat",
+				"text": "中文医学圈",
+				"iconPath": "pageCity/static/images/pengyouquan.png",
+				"selectedIconPath": "pageCity/static/images/pengyouquan-h.png"
+			},
+			{
+				"pagePath": "pages/mine/mine",
+				"text": "我的",
+				"iconPath": "pageCity/static/images/wode.png",
+				"selectedIconPath": "pageCity/static/images/wode-h.png"
+			}
+		]
+	},
+	"lazyCodeLoading": "requiredComponents",
+	"pages": [
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		},
+		{
+			"path": "pages/init/index",
+			"style": {
+				"navigationBarTitleText": "入口页"
+			}
+		},
+
+		{
+			"path": "pages/study/study",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/pratice/pratice",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/chat/chat",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/mine/mine",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+		}
+
+      
+    ],
+	"subpackages": [
+	    {
+	      "root": "pageCity",
+	      "name": "pageCity",
+	      "pages": [
+					{
+						"path": "login/index",
+						"style": {
+							"navigationBarTitleText": "登录"
+						}
+					},
+					{
+						"path": "forgotPassword/index",
+						"style": {
+							"navigationBarTitleText": "找回密码"
+						}
+					},
+					{
+						"path": "register/index",
+						"style": {
+							"navigationBarTitleText": "注册账号"
+						}
+					},
+					{
+						"path": "guide/index",
+						"style": {
+							"navigationBarTitleText": "引导页"
+						}
+					},
+					{
+						"path": "questionnaire/index",
+						"style": {
+							"navigationBarTitleText": "问卷调查"
+						}
+					},
+						{
+						    "path" : "articleDetial/index",
+						    "style" :                                                                                    
+						    {
+						        "navigationBarTitleText": ""
+						    }
+						    
+						}
+	      ]
+	    },
+			{
+				"root": "page_study",
+				"name": "page_study",
+				"pages": [
+					
+						{
+							"path": "textList/index",
+							"style": {
+								"navigationBarTitleText": "课文列表"
+							}
+						},
+						{
+							"path": "textDetail/index",
+							"style": {
+								"navigationBarTitleText": "textDetail"
+							}
+						},
+						{
+							"path": "dialogDetail/index",
+							"style": {
+								"navigationBarTitleText": "dialogDetail"
+							}
+						},
+						{
+							"path": "topicInfo/index",
+							"style": {
+								"navigationBarTitleText": "topicInfo"
+							}
+						},
+					{
+							"path": "resourceDetail/index",
+							"style": {
+								"navigationBarTitleText": "resourceDetail"
+							}
+						},
+						{
+						    "path" : "dialog/index",
+						    "style" :                                                                                    
+						    {
+						        "navigationBarTitleText": ""
+						    }
+						    
+						}
+				]
+			},
+		{	"root": "page_pratice",
+				      "name": "page_pratice",
+				      "pages": [
+								{
+									"path": "paper/index",
+									"style": {
+										"navigationBarTitleText": ""
+									}
+								},
+								{
+									"path": "answerPaper/index",
+									"style": {
+										"navigationBarTitleText": ""
+									}
+								},
+								{
+									"path": "specialAnswers/index",
+									"style": {
+										"navigationBarTitleText": "专项答题"
+									}
+								},
+								
+								{
+									"path": "matchPaper/index",
+									"style": {
+										"navigationBarTitleText": "挑战答题"
+									}
+								},
+								{
+									"path": "paperGuide/index",
+									"style": {
+										"navigationBarTitleText": "试卷结构指引"
+									}
+								},
+								{
+									"path": "zujuanDetail/index",
+									"style": {
+										"navigationBarTitleText": ""
+									}
+								}
+							]},
+			{
+				"root": "page_mine",
+				"name": "page_mine",
+				"pages": [
+					{
+						"path": "userInfo/index",
+						"style": {
+							"navigationBarTitleText": ""
+						}
+					},
+					{
+						"path": "sign/index",
+						"style": {
+							"navigationBarTitleText": "签到"
+						}
+					},
+					{
+						"path": "errorSet/index",
+						"style": {
+							"navigationBarTitleText": "错题集"
+						}
+					},
+					{
+						"path": "learningRecord/index",
+						"style": {
+							"navigationBarTitleText": "学习记录"
+						}
+					},
+					{
+						"path": "inform/index",
+						"style": {
+							"navigationBarTitleText": "我的通知"
+						}
+					},
+					{
+					        "path" : "informDetail/index",
+					        "style" :                                                                                    
+					        {
+					            "navigationBarTitleText": ""
+					        }
+					    },
+					{
+						"path": "point/index",
+						"style": {
+							"navigationBarTitleText": "我的积分"
+						}
+					},
+					{
+						"path": "resultAnalysis/index",
+						"style": {
+							"navigationBarTitleText": "成绩分析"
+						}
+					},
+					{
+						"path": "resultDetail/index",
+						"style": {
+							"navigationBarTitleText": "resultDetail"
+						}
+					},
+					{
+						"path": "abilityPortrait/index",
+						"style": {
+							"navigationBarTitleText": "能力画像"
+						}
+					},
+					{
+						"path": "favorites/index",
+						"style": {
+							"navigationBarTitleText": "收藏"
+						}
+					}
+				]
+			}
+			
+			],
+			
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	},
+	"uniIdRouter": {}
+}

@@ -1,0 +1,29 @@
+
+.articleList.data-v-cc7afae8 {
+	/* width: 100%; */
+	height: 100%;
+  padding: 20rpx;
+}
+.boxlist.data-v-cc7afae8 {
+  display: flex;
+  /* justify-content: space-between; */
+  margin: 5% 3%;
+  padding: 10rpx;
+  border-radius: 20rpx;
+  background-color: #fff;
+}
+.boxlist ._img.data-v-cc7afae8 {
+  width: 150rpx;
+  height: 120rpx;
+}
+.title.data-v-cc7afae8{
+	margin-left: 60rpx;
+}
+.bottom.data-v-cc7afae8{
+	margin: 20rpx 40rpx;
+	display: flex;
+	justify-content: space-between;
+	font-size: 24rpx;
+	color: #999;
+}
+

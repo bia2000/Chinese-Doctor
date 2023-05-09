@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "专项答题",
+  "usingComponents": {
+    "answer-page": "/components/answerPage/index"
+  }
+}

@@ -1,0 +1,1 @@
+<view class="data-v-6b3e0e36"><answer-page vue-id="06f78ce0-1" paper="{{paper}}" type="{{type}}" scoreList="{{scoreList}}" data-event-opts="{{[['^toPaperSubmit',[['toPaperSubmit']]]]}}" bind:toPaperSubmit="__e" class="data-v-6b3e0e36" bind:__l="__l"></answer-page></view>

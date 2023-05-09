@@ -1,0 +1,1 @@
+<view class="data-v-495f2956"><answer-page vue-id="e284ff5e-1" paper="{{paper}}" type="{{2}}" data-event-opts="{{[['^toMatch',[['toMatch']]]]}}" bind:toMatch="__e" class="data-v-495f2956" bind:__l="__l"></answer-page></view>

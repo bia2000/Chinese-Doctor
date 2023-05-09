@@ -1,0 +1,13 @@
+<view class="resourceDetail data-v-449ccfda"><block wx:if="{{type==0}}"><view class="data-v-449ccfda"><view class="txt data-v-449ccfda">改革开放以来.我国的医疗教育事业迅速崛起， 吸引了众多海外学子来华学习。21
+      世纪以来,申请到 我国学习的临床专业留学生人数逐年递增。本科临 床医学(
+      Bachelor of Medicine and Bachelor of Surgery, MBBS
+      )是我国为来华学习临床医学的留学生新开设
+      的一个专业。其中,大部分留学生在我国各大高校的
+      基础医学院完成理论课学习后,需要在中国相关院校
+      的附属医院进行见习和实习,从而获得医学学士学
+      位。我国的官方语言是汉语,除了掌握基础汉语知识
+      以满足日常生活外,他们还需要掌握医学汉语以便在
+      临床实习过程中能够与病患进行沟通。鉴于此，除了
+      开设基础汉语相关课程外，各大高校也相继开设了
+      医学汉语课程。在这些年的医学汉语教学过程中,一
+      些问题逐渐凸现出来，本文对此针对性地进行分析 探讨。</view></view></block><block wx:if="{{type==1}}"><view class="data-v-449ccfda"><video class="video data-v-449ccfda" src="{{path}}" controls="{{true}}"></video></view></block></view>
