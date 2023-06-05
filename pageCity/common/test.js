@@ -6,12 +6,12 @@
 //     }
 //     return R
 // }
- 
+
 // var arr = ['a','b','c','d','e','f'];
 // console.log(spArray(3,arr))
 
 
-// var str = 'http://zhipur.com/item?data=SN12018手动0525FEOCE'; 
+// var str = 'http://zhipur.com/item?data=SN12018手动0525FEOCE';
 // var code1 = str.match(/\?data=(.*)/)[1];//取 ?data=后面所有字符串
 // var code2 = str.match(/data=(.*)/)[1];//取 data=后面所有字符串
 // var code3 = str.match(/data=(.*)/)[0]; //取 包含 data=及后面的字符串
@@ -81,13 +81,13 @@
 
 
 
-// let enterTime = ''; 
+// let enterTime = '';
 // let outTime = '';
 // let stayTime = '';
 // export default {
 //   data() {
 //     return {
-     
+
 //     };
 //   },
 // 	onShow(){
@@ -117,9 +117,41 @@
 // 2.main.js文件全局注入
 
 // import residenceTime from '@/mixins/residenceTime.js'
- 
+
 // Vue.mixin(residenceTime); //全局混入
-var str = "hello Tara";
-if(str.indexOf("Tara") !== -1){
-	console.log(111);
-}
+// var str = "hello Tara";
+// if(str.indexOf("Tara") !== -1){
+// 	console.log(111);
+// }
+// var array = ['武汉', '北京', '上海', '天津'];
+// var resultArray = array.sort(
+//     function compareFunction(param1, param2) {
+//         return param1.localeCompare(param2,"zh");
+//     }
+// );
+// // return [resultArray]
+// console.log([resultArray]);
+
+// const inputString = '[{"content":"得分111","index":"时光"},{"content":"覆盖222","index":"反对"}]';
+// const regex = /"content":"([^"]+)"/g;
+// const matches = inputString.match(regex);
+// const regex1 = /"content":"([^"]+)"/;
+// // const matches1 = matches[0].match(regex1)
+// const matches1 = matches.map(e=>{
+//     return e.match(regex1)[1]
+// })
+// console.log(matches1); // ["content":"得分", "content":"覆盖"]
+const inputString = '1.优生优育[nan] 2.保守[形/动] 3.牙龈（名）'
+const regex = /（([^）]+)）/g;
+const regex1 = /（([^）]+)）/;
+const regex2 = /\[([^\]]+)\]/g;
+const regex3 = /\[([^\]]+)\]/;
+
+
+const matches = inputString.match(regex2);
+console.log(matches);
+const matches1 = matches.map(e=>{
+    return e.match(regex3)[1]
+})
+console.log(matches1);
+// console.log(inputString.match(/\[(?:.+?)\]/g));

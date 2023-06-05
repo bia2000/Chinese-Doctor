@@ -17,7 +17,7 @@
 							<u-input type="text" v-model="form.title" border="surround" placeholder="请输入标题" />
 						</u-form-item>
 						<u-form-item class="">
-							<u-textarea type="textarea" v-model="form.content" height='50' border="surround"
+							<u-textarea type="textarea" v-model="form.content" maxlength='300' height='50' border="surround"
 								placeholder="尽情表达你的想法"></u-textarea>
 						</u-form-item>
 						<u-form-item label="添加附件" label-width="120" prop="attached" label-position="top">
@@ -38,7 +38,8 @@
 	import articleList from 'c/articleList'
 	import {
 		chat_circle,
-		getUserInfo
+		getUserInfo,
+		updateUserAction
 	} from '@/common/request'
 	export default {
 		components: {
@@ -71,25 +72,26 @@
 		},
 		methods: {
 			submit() {
-				// console.log(this.fileList1);
 				updateUserAction('count_discuss',1)
 				let chat = chat_circle.create()
 				chat.set({
 					title: this.form.title,
 					content: this.form.content,
-					userId: this.userInfo.id,
 					author: this.userInfo.name
 				})
 				if (this.fileList1.length > 0)
 					chat.set({
 						img_url: this.fileList1[0].thumb,
+						title: this.form.title,
+						content: this.form.content,
+						author: this.userInfo.name
 					})
 				chat.save()
 				this.show = false
 				this.form = {}
 				this.fileList1 = []
 				setTimeout(() => {
-					uni.redirectTo({
+					uni.switchTab({
 						url: '/pages/chat/chat'
 					})
 				}, 1000)
@@ -176,12 +178,11 @@
 	}
 
 	.fabu {
-		position: sticky;
+		position: fixed;
 		width: 120rpx;
 		height: 120rpx;
-		top: 800rpx;
-		left: 600rpx // right: 40rpx;
-			// bottom: 100rpx;
+		right: 40rpx;
+		bottom: 100rpx;
 			// margin-left: 100rpx;
 	}
 

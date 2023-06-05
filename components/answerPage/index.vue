@@ -19,16 +19,19 @@
       <view class="btn" v-if="type == 3 && !isPaperSubmit" @click="submit">提交试卷</view>
       <!-- <view class="btn" v-if="type == 3 && !isPaperSubmit">保存答案 </view> -->
       <view class="btn" v-if="type == 4" @click="deleteError(currentPage - 1)">删除 </view>
+			<view class="btn" v-if="type == 5" @click="$emit('comfirmCopy')">
+				确认添加
+			</view>
     </view>
     <view class="content">
-      <view class="top-tips" v-if="isSubmit"> 答对{{ score }}题 获得积分{{ score }}分 </view>
+      <view class="top-tips" v-if="isSubmit"> 答对{{ nums }}题 获得积分{{ nums }}分 </view>
       <view class="title2"
         >{{ currentPage }}.{{ paper[currentPage - 1].secondary_ques_type }}
         <!-- ({{ scoreList[currentPage - 1] }}分) -->
       </view>
       <view class="que">
         <view class="" v-if="paper[currentPage - 1].question_content.length > 20"
-          >{{ paper[currentPage - 1].question_content }}
+          ><text>{{ paper[currentPage - 1].question_content }}</text>
         </view>
         <view
           class=""
@@ -45,7 +48,7 @@
 				<view class="question" v-if="paper[currentPage - 1].question!=null"> {{ paper[currentPage - 1].question }} </view>
       </view>
 <!-- 			<view v-if="">
-				
+
 			</view> -->
       <view class="options" v-if="paper[currentPage - 1].options">
         <u-radio-group
@@ -111,7 +114,6 @@ export default {
   components: { audioView },
   data() {
     return {
-      // paper: [],
       userId: '',
       currentPage: 1,
 			check:[],
@@ -142,7 +144,6 @@ export default {
   },
 	watch: {
 		check(newValue, oldValue) {
-			// console.log(newValue);
 		}
 	},
   computed: {
@@ -150,7 +151,6 @@ export default {
 			let list = []
 			// this.paper.map(e=>{
 			// 	if(e.secondary_ques_type=='选择正确的词语填空')
-			// 	console.log(111);
 			// })
 		},
     time() {
@@ -164,7 +164,7 @@ export default {
     content() {
       return '您答对了' + this.num_question + '题'
     },
-    
+
     options() {
       if (this.paper.length > 0) {
         var str3 = {}
@@ -173,10 +173,22 @@ export default {
         if (this.paper.length > 0) {
           var str1 = trimAll(str2)
           if (str1) {
-            str3['content'] = str1.match(/(?<=(content":")).*?(?=("))/g)
-            str3['index'] = str1.match(/(?<=(index":")).*?(?=("))/g)
+            let r1 = new RegExp('content":"([^"]+)','g')
+            let r11 = new RegExp('content":"([^"]+)')
+            let r2 = new RegExp('index":"([^"]+)','g')
+            let r22 = new RegExp('index":"([^"]+)')
+            let str11 = str1.match(r1)
+            str3['content'] = str11.map(e=>{
+              return e.match(r11)[1]
+            })
+            let str22 = str1.match(r2)
+            str3['index'] = str22.map(e=>{
+              return e.match(r22)[1]
+            })
+            // str3['content'] = str1.match(/(?<=(content":")).*?(?=("))/g)
+            // str3['index'] = str1.match(/(?<=(index":")).*?(?=("))/g)
           }
-          // console.log(str3)
+          console.log(str3);
 					if(str1)
           for (let i = 0; i < str3.content.length; i++) {
             str4.push({ content: str3.content[i], index: str3.index[i] })
@@ -192,7 +204,6 @@ export default {
       )
     },
     totalScore() {
-      // console.log(this.paper);
       let tt = 0
       if (this.scoreList) {
         this.scoreList.map((e) => {
@@ -209,6 +220,8 @@ export default {
 			})
 		},
     toNext() {
+			this._audioContext.stop()
+			console.log(this.paper);
 			this.groupby()
       this.isWrong = false
       if (this.type == 2) {
@@ -218,7 +231,6 @@ export default {
           if (userList.indexOf(this.userId) == -1) {
             userList.push(this.userId)
           }
-          // console.log(userList)
           product.set('user_id', userList)
           product.update()
           this.isWrong = true
@@ -235,7 +247,6 @@ export default {
       } else {
         this.currentPage++
       }
-      // console.log(this.currentPage)
       if (this.currentPage == 11 && this.type == 1) {
         this.currentPage--
         this.getGreat()
@@ -255,12 +266,13 @@ export default {
       }
     },
     toPrev() {
+			this._audioContext.stop()
       this.currentPage--
+			this.num_question--
     },
     radioGroupChange(e) {
       this.paper[this.currentPage - 1].check = e
 			this.check[this.currentPage - 1] = e
-      // console.log(this.paper[this.currentPage - 1])
     },
     // 算成绩
     getGreat() {
@@ -289,7 +301,7 @@ export default {
       } else if (this.type == 3) {
         for (let i = 0; i < this.paper.length; i++) {
           this.answerList.push(this.check[i])
-					console.log(this.answerList);
+					// console.log(this.answerList);
 					if(this.check[i].length<5){
           if (this.check[i] == this.paper[i].answer) {
 						getPoints('isanswer',20)
@@ -313,10 +325,20 @@ export default {
       }
     },
     getFile(url) {
+			this._audioContext =
+			  (this.audioContext =
+			  	uni.createInnerAudioContext())
+			this._audioContext.stop()
       return 'https://cloud-minapp-45998.cloud.ifanrusercontent.com/' + url
     },
     submit() {
-      // console.log(this.t)
+			if(this.check.length!=this.paper.length){
+				uni.showToast({
+					icon:'none',
+					title:'您还有试题未填写'
+				})
+
+			}else{
       this.getGreat()
       this.isPaperSubmit = true
 			updateUserAction('count_pp_h',this.num_actions.h)
@@ -331,7 +353,7 @@ export default {
         // 勾号消失
         icon: 'none',
       })
-      this.$emit('toPaperSubmit', this.score, this.answerList, this.time)
+      this.$emit('toPaperSubmit', this.score, this.answerList, this.time)			}
     },
     deleteError(e) {
       let userList = this.paper[e].user_id
@@ -341,8 +363,6 @@ export default {
         this.paper.splice(index, 1)
         userList.splice(index, 1)
       }
-      // console.log(this.paper)
-      // console.log(userList)
       product.set('user_id', userList)
       product.update()
     },
@@ -359,21 +379,18 @@ export default {
 		    }
 		    dataInfo[primary_ques_type].child.push(item)
 		  })
-			// console.log(dataInfo['写作']);
 			if(dataInfo['听力'])
 			this.num_actions.h = dataInfo['听力'].child.length
 			if(dataInfo['阅读'])
 			this.num_actions.r = dataInfo['阅读'].child.length
 			if(dataInfo['写作'])
 			this.num_actions.w = dataInfo['写作'].child.length
-			console.log(this.num_actions);
 		  // let list = Object.values(dataInfo) // list 转换成功的数据
 		  // let score1=0
 		  // list[1].child.forEach((e)=>{
 		  //   if (e.check == e.answer)
 		  //       score1 += this.scoreList[i] * 1
 		  // })
-		  // console.log(list[1])
 		},
     // 开始计时
     startHandler() {
@@ -419,17 +436,19 @@ export default {
 	onShow() {
 		// this.getPoints('')
 	},
-	
+
   async mounted() {
+		this._audioContext =
+		  (this.audioContext =
+		  	uni.createInnerAudioContext())
 		this.userId = uni.getStorageSync('id')
-    // console.log(this.userId)
     this.startHandler()
     if (this.type == 4) {
       this.isPaperSubmit = true
     }
     this.userInfo = await getUserInfo(this.userId)
   },
-	
+
 }
 </script>
 

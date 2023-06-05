@@ -13,7 +13,7 @@
           ><view class="number">{{ userInfo.day }}</view
           ><view>已累计打卡</view></view
         >
-        <view @click="$goBack(4, '/page_mine/learningRecord/index?type=2')"
+        <view @click="$goBack(2, '/page_mine/learningRecord/index?type=2')"
           ><view class="number">{{ userInfo.papered }}</view
           ><view>做卷总卷数</view></view
         >

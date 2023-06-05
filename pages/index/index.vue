@@ -17,6 +17,11 @@
 				<scroll-view scroll-y="true" class="scroll-Y" style="height: 30%">
 					<article-list :detail="news" :type='1' class="articleList"></article-list>
 				</scroll-view>
+				<u-loading-icon
+				:show="flag"
+				    :vertical="true"
+				    text="加载中"
+				></u-loading-icon>
 			</view>
 		</view>
 	</view>
@@ -42,7 +47,7 @@
 			return {
 				seconds: 0,
 				userId: '',
-				// flag:false,
+				flag:false,
 
 				list1: [
 					'https://cloud-minapp-45998.cloud.ifanrusercontent.com/1pioNu7h1DnkJn5l.png',
@@ -67,14 +72,9 @@
 		},
 		computed: {},
 		onLoad() {
-			// this.userId = uni.getStorageSync('id')
-			// console.log(this.userId);
+
 		},
 		methods: {
-			updateTimer() {
-				
-				// console.log(this.seconds)
-			},
 			refresh() {
 				// this.flag = true
 				this.$store.state.hasLogin = true
@@ -110,10 +110,13 @@
 
 		},
 		async mounted() {
-			getPoints('issign',0)
+			this.flag=true
 			news.find().then(res => {
+				// console.log(1);
 				this.news = res.data.objects
+				this.flag=false
 			})
+			getPoints('issign',0)
 			// console.log(this.news);
 		},
 	}

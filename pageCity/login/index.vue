@@ -24,7 +24,7 @@
       />
       <label class="checkbox" @click="checkboxChange">
         <checkbox :checked="check" />
-        <text class="">已阅读并同意XXXXX协议</text>
+        <text class="">已阅读并同意<text style="color: skyblue" @click="$goBack(2, '../../pages/license/license')" >《用户协议》</text>及<text style="color: skyblue" @click="$goBack(2, '../../pages/privacy/privacy')" >《隐私政策》</text></text>
       </label>
       <button class="btn" @click="toLogin">登录</button>
       <view class="register" @click="$goBack(2, '../register/index')">

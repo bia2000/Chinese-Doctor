@@ -1,8 +1,8 @@
 <template>
 	<view class="favorites">
-		<u-subsection :list="list" mode="button" :current="current" @change="change" activeColor="#53A5D9">
-		</u-subsection>
-		<view class="" v-if="current == 0">
+		<!-- <u-subsection :list="list" mode="button" :current="current" @change="change" activeColor="#53A5D9">
+		</u-subsection> -->
+		<!-- <view class="" v-if="current == 0"> -->
 			<view class="boxItem" v-for="item in paperList" :key="item.id">
 				<view class="">
 					<view class="title">
@@ -28,13 +28,13 @@
 				</view>
 				<view class="right" v-if="item.flag">
 					<view class=""> {{ item.user_score }}分 </view>
-					<view class="btn" @click="$goBack(2, '/page_pratice/paper/index?list=' + item.question_set)">去复习</view>
+					<view class="btn" @click="$goBack(2, '/page_pratice/paper/index?list=' + item.question_set+'&answer='+item.question_set_answer)">去复习</view>
 				</view>
 			</view>
-		</view>
-		<view class="" v-if="current == 1">
+		<!-- </view> -->
+<!-- 		<view class="" v-if="current == 1">
 			<articleList :detail="articlelist" :type='2'></articleList>
-		</view>
+		</view> -->
 	</view>
 </template>
 
@@ -79,17 +79,17 @@
 			})
 			query.queryObject.$and = []
 			query.contains('isCollected', '1')
-			paper_public
-				.setQuery(query)
-				.limit(100)
-				.find()
-				.then(
-					(res) => {
-						res.data.objects.map(e => {
-							this.paperList.push(e)
-						})
-					}
-				)
+			// paper_public
+			// 	.setQuery(query)
+			// 	.limit(100)
+			// 	.find()
+			// 	.then(
+			// 		(res) => {
+			// 			res.data.objects.map(e => {
+			// 				this.paperList.push(e)
+			// 			})
+			// 		}
+			// 	)
 			news
 				.setQuery(query)
 				.limit(100)

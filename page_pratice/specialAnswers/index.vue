@@ -54,6 +54,9 @@ export default {
           console.log('error')
         }
       )
+		uni.setNavigationBarTitle({
+		  title: '专项答题 '+this.title,
+		})
   },
   // 页面周期函数--监听页面初次渲染完成
   onReady() {},

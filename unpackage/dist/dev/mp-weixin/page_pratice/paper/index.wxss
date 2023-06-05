@@ -54,7 +54,17 @@
 .options .options-item.data-v-2a20a0d8 {
   padding: 10rpx;
 }
+.write.data-v-2a20a0d8 {
+  margin-top: 40rpx;
+}
 .analysis.data-v-2a20a0d8 {
   margin: 20rpx;
+}
+.analysis .title.data-v-2a20a0d8 {
+  font-weight: bold;
+  font-size: 30rpx;
+}
+.analysis .analysis-text.data-v-2a20a0d8 {
+  color: skyblue;
 }
 

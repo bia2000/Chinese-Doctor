@@ -20,7 +20,6 @@
     </view>
     <u-popup
       :show="show"
-      border-radius="40rpx"
       mode="bottom"
       length="60%"
       @close="show = false"
@@ -166,6 +165,7 @@ export default {
     query.contains('userId', this.userId)
     this.upoints = await points
       .setQuery(query)
+			.orderBy('-created_at')
       .find()
       .then((res) => {
         return res.data.objects
@@ -241,7 +241,7 @@ export default {
 }
 .point-detail {
   margin-top: 60rpx;
-  margin-left: 80rpx;
+  // margin-left: 20rpx;
 	padding: 30rpx;
   width: 600rpx;
   text-align: right;
@@ -250,7 +250,7 @@ export default {
     display: flex;
     justify-content: space-between;
     text {
-      width: 150rpx;
+      width: 200rpx;
     }
   }
 	.title{

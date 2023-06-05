@@ -39,7 +39,7 @@
           </view>
           <view class="right">
             <!-- <view class=""> {{ item.score_paper }}分 </view> -->
-            <view class="btn" @click="$goBack(2, '/page_mine/resultDetail/index?id=' + item.id)">
+            <view class="btn" @click="$goBack(2, '/page_pratice/paper/index?list=' + item.question_set+'&answer='+item.question_set_answer+'&flag=1'+'&papertype='+item.paper_type)">
               查看成绩
             </view>
           </view>
@@ -65,7 +65,7 @@ export default {
 			userInfo:{},
       paperList: [],
       titlelist: ['学习数据', '试卷成绩'],
-      list: [{name:'我的做卷数',value:''},{name:'我的模考数',value:'2'},{name:'我的组卷数',value:''}],
+      list: [{name:'我的做卷数',value:''},{name:'我的模考数',value:''},{name:'我的组卷数',value:''}],
     }
   },
   computed: {
@@ -126,8 +126,9 @@ export default {
 		let user = getUserInfo(userId)
 		user.then((res) => {
 		  this.userInfo = res
-			this.list[0].value =res.papers
-			this.list[2].value =res.papered
+			this.list[0].value =res.papered
+			this.list[1].value =res.public_p
+			this.list[2].value =res.papers
 		})
 		query.queryObject.$and = []
 		query.contains('userId', userId)

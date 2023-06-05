@@ -169,8 +169,15 @@ export function groupBy(paper,key){
 
 // 时间戳转化 年月日
 export function TimestampToDate(Timestamp) {
-	let date1 = new Date(Timestamp);
-	return date1.toLocaleDateString().replace(/\//g, ".")
+	    let date = new Date(parseInt(Timestamp) );
+	    let Year = date.getFullYear();
+	    let Moth = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1);
+	    let Day = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate());
+			let  GMT =  Year + '-' + Moth + '-' + Day
+			return GMT
+	// let date1 = new Date(Timestamp);
+	// return date1.toLocaleDateString().replace(/\//g, ".")
+	
 }
 
 /**

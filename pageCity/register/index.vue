@@ -4,10 +4,10 @@
 			<text class="name"> 中文名 </text>
 			<u-input placeholder="请输入中文名" border="bottom" v-model="userName"></u-input>
 		</view>
-		<view class="box">
+	<!-- 	<view class="box">
 			<text class="name"> 邮箱 </text>
 			<u-input placeholder="请输入邮箱地址" border="bottom" v-model="email"></u-input>
-		</view>
+		</view> -->
 		<view class="box">
 			<text class="name"> 手机号 </text>
 			<u-input placeholder="请输入手机号码" border="bottom" v-model="phone"></u-input>
@@ -41,7 +41,16 @@
 			<text class="name"> 确认密码 </text>
 			<u-input placeholder="请再次输入密码" border="bottom" v-model="confirmPassword"></u-input>
 		</view>
+		<label class="checkbox" @click="checkboxChange">
+		  <checkbox :checked="check" />
+		  <text class="">已阅读并同意<text style="color: skyblue" @click="$goBack(2, '../../pages/license/license')" >《用户协议》</text>及<text style="color: skyblue" @click="$goBack(2, '../../pages/privacy/privacy')" >《隐私政策》</text></text>
+		</label>
 		<view class="btn" @click="toRegister"> 完成注册 </view>
+		<u-alert
+		    :description="description"
+				:show-icon="true"
+		    type="warning"
+		></u-alert>
 	</view>
 </template>
 
@@ -57,11 +66,11 @@
 				userName: '',
 				phone: null,
 				email: '',
+				check:false,
 				newPassword: '',
 				confirmPassword: '',
+				description:'中文名，手机号等信息仅在登录及核对得分用，不做其他用途',
 				userlist: [],
-				// codeValue: '',
-				codeKey: '',
 				rules: {
 					userName: [{
 						rule: /[\u4E00-\u9FA5]/,
@@ -71,10 +80,10 @@
 						rule: /^[1][3,4,5,7,8][0-9]{9}$/,
 						msg: '请输入正确的手机号码',
 					}, ],
-					email: [{
-						rule: /^([0-9a-zA-Z_\.\-\u4e00-\u9fa5])+\@([0-9a-zA-Z_\.\-\])+\.([a-zA-Z]{2,8})$/,
-						msg: '请输入正确的邮箱',
-					}, ],
+					// email: [{
+					// 	rule: /^([0-9a-zA-Z_\.\-\u4e00-\u9fa5])+\@([0-9a-zA-Z_\.\-\])+\.([a-zA-Z]{2,8})$/,
+					// 	msg: '请输入正确的邮箱',
+					// }, ],
 					newPassword: [{
 						rule: /^.{6,20}$/,
 						msg: '密码长度必须为6-20个字符',
@@ -84,31 +93,48 @@
 		},
 		computed: {},
 		methods: {
+			checkboxChange() {
+			  this.check = !this.check
+			},
 			// 实现注册
 			toRegister() {
+				
 				if (!this.validate('userName')) return
-				if (!this.validate('email')) return
+				// if (!this.validate('email')) return
 				if (!this.validate('phone')) return
 				if (!this.validate('newPassword')) return
 				if (!this.validate('confirmPassword')) return
-				console.log(typeof this.phone);
-				console.log(typeof this.newPassword);
+				if (!this.check) {
+				  return uni.showToast({
+				    title: '请先同意协议',
+				    icon: 'none',
+				  })
+				}
 				let add_user_info = user_info.create()
 				add_user_info.set({
 					name: this.userName,
-					email: this.email,
-					phone: this.phone,
-					password: this.newPassword,
+					phone: this.phone+'',
+					password: this.newPassword+'',
 				})
+				console.log(3);
 				add_user_info.save().then(
 					(res) => {
-						// success
-						uni.redirectTo({
-					  url: '../login/index',
+						console.log(4);
+						uni.showToast({
+							icon: 'none',
+							title: '注册成功'
 						})
+						console.log(5);
+						// success
+						setTimeout(() => {
+							uni.redirectTo({
+								url: '../login/index',
+							})
+						}, 1000)
 					},
 					(err) => {
 						// HError 对象
+						console.log(err);
 					}
 				)
 				// BaaS.auth
@@ -123,7 +149,7 @@
 				if (key == 'phone') {
 					if (this.userlist.indexOf(this[key]) != -1) {
 						uni.showToast({
-				 		title: '该手机号已注册过',
+							title: '该手机号已注册过',
 							// 勾号消失
 							icon: 'none',
 						})
@@ -197,4 +223,7 @@
 			text-align: center;
 		}
 	}
+		.checkbox {
+		  margin-top: 50rpx;
+		}
 </style>

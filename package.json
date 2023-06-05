@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "pinyin-pro": "^3.14.0",
     "uview-ui": "^2.0.35",
     "vuex": "^4.1.0"
   }

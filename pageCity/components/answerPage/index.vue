@@ -168,8 +168,10 @@ export default {
         if (this.paper.length > 0) {
           var str1 = trimAll(str2)
           if (str1) {
-            str3['content'] = str1.match(/(?<=(content":")).*?(?=("))/g)
-            str3['index'] = str1.match(/(?<=(index":")).*?(?=("))/g)
+            let r1 = new RegExp('(?<=(content":")).*?(?=("))','g')
+					let r2 = new RegExp('(?<=(index":")).*?(?=("))','g')
+            str3['content'] = str1.match(r1)
+            str3['index'] = str1.match(r2)
           }
           // console.log(str3)
           for (let i = 0; i < str3.content.length; i++) {

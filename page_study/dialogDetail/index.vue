@@ -10,8 +10,8 @@
 				</view>
 				<view v-for="item in keyWords" :key="item.id" class="">
 					<view class="tr">
-						<view class="td">{{ item }}</view>
-						<view class="td"> MCT_medical_word </view>
+						<view class="td">{{ item.name }}</view>
+						<view class="td"> {{item.verb}} </view>
 					</view>
 				</view>
 			</view>
@@ -40,9 +40,14 @@
 				</text>
 			</view>
 			<view class="content">
-				<view class="text" v-for="item in detailList" :key="item.id">
-					<text>{{item.dialogue}}</text>
-					<audioView :audioUrl="getFile(item.mp3)"></audioView>
+				<view class="text" v-for="item,index in detailList" :key="item.id">
+					<!-- <img :src="aa" alt="">
+					 -->
+					 <u-icon :name="aiSrc" size="30" v-if="index%2==0"></u-icon>
+					 <u-icon :name="userSrc" size="30" v-if="index%2!=0"></u-icon>
+					<text :class="{'active': nums==index,'active1': num1==index}">{{item.dialogue}}</text>
+					<!-- <text v-if="type!=1&&type!=2">liang{{highlight}}</text> -->
+					<audioView @click.native="highlight(index)" :audioUrl="getFile(item.mp3)"></audioView>
 				</view>
 
 			</view>
@@ -117,6 +122,8 @@
 </template>
 
 <script>
+	// import ai from '../static/ai.png'
+	import user from '../static/user.png'
 	import {
 		groupBy,
 		trimAll
@@ -145,18 +152,22 @@
 				iscontent: false,
 				btRecoding: false,
 				is_clock: false,
+				userSrc:'https://cloud-minapp-45998.cloud.ifanrusercontent.com/user.png',
+				aiSrc:'https://cloud-minapp-45998.cloud.ifanrusercontent.com/ai.png',
 				theme: '',
 				audio_path: '',
 				startPoint: '',
 				audioContext: '',
 				detail: '',
-				nums: 0,
+				nums: '',
 				type: 1,
+				num1:100,
 				evaluates: [],
 				detailList: []
 			}
 		},
 		computed: {
+
 			dialog() {
 				let lesson = []
 				if (this.message.length > 0) {
@@ -182,16 +193,16 @@
 					return prev + current.score;
 				}, 0)
 				let obj = {}
-				obj.fluency = sum_f/this.evaluates.length
-				obj.integrity = sum_i/this.evaluates.length
-				obj.pronunciation = sum_p/this.evaluates.length
-				obj.score = sum_s/this.evaluates.length
-				console.log(obj);
+				obj.fluency = (sum_f/this.evaluates.length).toFixed(2)
+				obj.integrity = (sum_i/this.evaluates.length).toFixed(2)
+				obj.pronunciation = (sum_p/this.evaluates.length).toFixed(2)
+				obj.score = (sum_s/this.evaluates.length).toFixed(2)
+				// console.log(obj);
 				return obj
 			},
 			keyWords() {
 				let keys = ''
-				console.log(this.dialog);
+				// console.log(this.dialog);
 				let key = Object.values(this.dialog)
 				var str4 = [],
 					str3 = {
@@ -199,8 +210,30 @@
 						verb: ''
 					}
 				key.map(e => {
-					str4.push(...e[0].keywords.match(/(?<=\.)(.+?)(?=（)/g))
+					console.log(e);
+					// let r1 = new RegExp('(?<=\.)(.+?)(?=（)','g')
+					// let r2 = new RegExp('(?<=（)(.+?)(?=）)','g')
+					// let arr = e[0].keywords.match(r1)
+					// let arr2 = e[0].keywords.match(r2)
+					let r1 = /\.([^（]+)（/g
+					let r11 = /\.([^（]+)（/
+					let r2 = /（([^）]+)）/g;
+					let r22 = /（([^）]+)）/;
+					let arr11 = e[0].keywords.match(r1)
+					let arr = arr11.map(e=>{
+              return e.match(r11)[1]
+            })
+					// let arr = e[0].keywords.match(/(?<=\.)(.+?)(?=（)/g)
+					let arr22 = e[0].keywords.match(r2)
+					let arr2 = arr22.map(e=>{
+              return e.match(r22)[1]
+            })
+					// console.log(arr);
+					arr.map((e,index)=>{
+					str4.push({name:e,verb:arr2[index]})
+					})
 				})
+				// console.log(str4);
 				return str4
 				// }
 			},
@@ -219,36 +252,43 @@
 			},
 			toDetail(e) {
 				this.iscontent = true
-				console.log(e);
+				// console.log(e);
 				this.detailList = this.dialog[e]
+			},
+			highlight(e){
+			this.innerAudioContext.stop()
+			this.num1 = e
 			},
 			beginRead() {
 				this.type = 3
+				this.nums=0
+				this.num1=100
 				this.palyAudio(this.detailList[this.nums].mp3)
 			},
 			palyAudio(url) {
-				var innerAudioContext = (this.audioContext =
-					uni.createInnerAudioContext())
-				innerAudioContext.src = 'https://cloud-minapp-45998.cloud.ifanrusercontent.com/' + url
-				innerAudioContext.play(); //执行播放
-				innerAudioContext.onPlay(() => {
+				this.num1=100
+				this.innerAudioContext.src = 'https://cloud-minapp-45998.cloud.ifanrusercontent.com/' + url
+				this.innerAudioContext.play(); //执行播放
+				this.innerAudioContext.onPlay(() => {
 					console.log('开始播放')
 				})
 			},
 			async showD() {
 				let res = await evaluateAudio(this.audio_path, this.detailList[this.nums + 1].sentence)
 				let result = JSON.parse(res[1].data)
-				console.log(result);
+				// console.log(result);
 				if (this.type == 4) {
 					this.evaluates.pop()
 				}
 				this.evaluates.push(result)
-				console.log(this.nums);
-				console.log(this.detailList.length);
+				// console.log(this.nums);
+				// console.log(this.detailList.length);
 				return result.score*1
 			},
 			handleRecordStart(e) {
+				this.num1=100
 				// this.blackBoxSpeak = true
+				this.innerAudioContext.stop()
 				this.btRecoding = true
 				this.is_clock = true //长按时应设置为true，为可发送状态
 				this.startPoint = e.touches[0] //记录触摸点的坐标信息
@@ -271,8 +311,8 @@
 					var that = this
 					//对停止录音进行监控
 				 recorderManager.onStop(async (res) => {
-						//对录音时长进行判断，少于2s的不进行发送，并做出提示
-						if (res.duration < 2000) {
+						//对录音时长进行判断，少于1s的不进行发送，并做出提示
+						if (res.duration < 1000) {
 							wx.showToast({
 								title: '录音时间太短，请长按录音',
 								icon: 'none',
@@ -324,7 +364,8 @@
 
 		// 页面周期函数--监听页面加载
 		onLoad(e) {
-
+			this.innerAudioContext = (this.audioContext =
+				uni.createInnerAudioContext())
 			query.queryObject.$and = []
 			query.contains('text_name', e.lesson)
 			learn_information_MCTdialogue
@@ -442,7 +483,12 @@
 		justify-content: center;
 		align-items: center;
 	}
-
+	.active{
+		color: #53A5D9;
+	}
+	.active1{
+		color: skyblue;
+	}
 	.content {
 		margin: 20rpx 40rpx;
 
@@ -488,11 +534,12 @@
 			height: 160rpx;
 			border-radius: 24rpx;
 			background-color: rgba($color: #000000, $alpha: 0.4);
-			margin: auto;
 			padding: 20rpx;
-			position: relative;
+			position: fixed;
 			text-align: center;
-			top: 288rpx;
+			left: 50%;
+			margin-left: -80rpx;
+			bottom: 200rpx;
 		}
 
 		.blackBoxSpeakConent {

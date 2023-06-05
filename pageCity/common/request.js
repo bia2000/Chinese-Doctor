@@ -14,6 +14,7 @@ export let question_bank = new wx.BaaS.TableObject('question_bank')
 export let user_info = new wx.BaaS.TableObject('user_info')
 export let paper_user = new wx.BaaS.TableObject('paper_user')
 export let paper_public = new wx.BaaS.TableObject('paper_public')
+export let collect_article = new wx.BaaS.TableObject('collect_article')
 export let user_comment = new wx.BaaS.TableObject('user_comment')
 export let learn_information = new wx.BaaS.TableObject('learn_information')
 export let learn_information_MCTdialogue = new wx.BaaS.TableObject('learn_information_MCTdialogue')
@@ -30,7 +31,10 @@ export let query2 = new wx.BaaS.Query()
 
 export let Product = new wx.BaaS.TableObject('kg')
 
-
+	wx.BaaS.auth.login({
+		username: '13555555555',
+		password: '111111'
+	})
 
 export async function _login(i) {
 	// BaaS.auth.anonymousLogin().then(user => {
@@ -68,11 +72,6 @@ export async function _login(i) {
 	wx.BaaS.auth.login({
 		username: '13555555555',
 		password: '111111'
-	}).then(user => {
-		// console.log(user)
-	}).catch(err => {
-		// HError
-		// console.log('bukey');
 	})
 	// wx.BaaS.auth.loginWithWechat().then(user => {
 	//   // 登录成功
@@ -121,6 +120,7 @@ export async function getUserPaper(query) {
 	paperList = await paper_user
 		.setQuery(query)
 		.limit(100)
+		.orderBy('-created_at')
 		.find()
 		.then(
 			(res) => {
@@ -167,7 +167,7 @@ export function updateUserAction(key,num) {
 			// console.log(res)
 			usera = res.data.objects[0][key]
 			if(key.indexOf('rate')!=-1){
-				usera = num*1
+				usera = (num*1+usera)/2
 			}else
 			usera += num
 			let product = user_actions.getWithoutData(res.data.objects[0].id)

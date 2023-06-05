@@ -38,12 +38,11 @@
   margin-left: -100rpx;
 }
 .fabu.data-v-bf16e7f4 {
-  position: -webkit-sticky;
-  position: sticky;
+  position: fixed;
   width: 120rpx;
   height: 120rpx;
-  top: 800rpx;
-  left: 600rpx;
+  right: 40rpx;
+  bottom: 100rpx;
 }
 .form.data-v-bf16e7f4 {
   margin: 40rpx;

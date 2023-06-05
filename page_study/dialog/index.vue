@@ -89,20 +89,22 @@
 		onReady() {},
 		// 页面周期函数--监听页面显示(not-nvue)
 		onShow() {
-			if (this.message.length > 0) {
-				let t1 = {
-					name: ''
-				}
-				t1['name'] = this.message[1].text
-				// console.log(t1)
-				let t = this.message[1].text
-				if (t.length > 0) {
-					t1['name'] = t.match(/(?<=\n)(.+?)(?=\n)/g)
-					// str3['verb'] = keys.match(/(?<=（)(.+?)(?=）)/g)
-				}
-				// console.log(str3)
-				// console.log(t1)
-			}
+			// if (this.message.length > 0) {
+			// 	let t1 = {
+			// 		name: ''
+			// 	}
+			// 	t1['name'] = this.message[1].text
+			// 	// console.log(t1)
+			// 	let t = this.message[1].text
+			// 	if (t.length > 0) {
+			// 		let r1 = new RegExp('(?<=\n)(.+?)(?=\n)','g')
+			// 		t1['name'] = t.match(r1)
+			// 		console.log(t);
+			// 		// str3['verb'] = keys.match(/(?<=（)(.+?)(?=）)/g)
+			// 	}
+			// 	// console.log(str3)
+			// 	// console.log(t1)
+			// }
 		},
 		// 页面周期函数--监听页面隐藏
 		onHide() {},

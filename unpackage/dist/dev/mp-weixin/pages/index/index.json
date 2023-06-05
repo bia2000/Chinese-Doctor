@@ -2,6 +2,7 @@
   "navigationBarTitleText": "",
   "usingComponents": {
     "u-swiper": "/node-modules/uview-ui/components/u-swiper/u-swiper",
+    "u-loading-icon": "/node-modules/uview-ui/components/u-loading-icon/u-loading-icon",
     "article-list": "/components/articleList/index"
   }
 }

@@ -92,6 +92,12 @@
   justify-content: center;
   align-items: center;
 }
+.active.data-v-7cbcb514 {
+  color: #53A5D9;
+}
+.active1.data-v-7cbcb514 {
+  color: skyblue;
+}
 .content.data-v-7cbcb514 {
   margin: 20rpx 40rpx;
 }
@@ -135,11 +141,12 @@
   height: 160rpx;
   border-radius: 24rpx;
   background-color: rgba(0, 0, 0, 0.4);
-  margin: auto;
   padding: 20rpx;
-  position: relative;
+  position: fixed;
   text-align: center;
-  top: 288rpx;
+  left: 50%;
+  margin-left: -80rpx;
+  bottom: 200rpx;
 }
 .shade .blackBoxSpeakConent.data-v-7cbcb514 {
   position: absolute;

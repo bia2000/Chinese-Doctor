@@ -5,7 +5,9 @@
     "pages/study/study",
     "pages/pratice/pratice",
     "pages/chat/chat",
-    "pages/mine/mine"
+    "pages/mine/mine",
+    "pages/license/license",
+    "pages/privacy/privacy"
   ],
   "subPackages": [
     {

@@ -5,9 +5,9 @@
 		</view>
 		<view class="time">
 			<view v-if="news.author">{{news.author}}
-<!-- 			 <text class="follow" @click="toFollow">{{ follow ?'已关注':'关注'}}
+				<!-- 			 <text class="follow" @click="toFollow">{{ follow ?'已关注':'关注'}}
 				</text> -->
-				 </view>
+			</view>
 			<view>{{getTime(news.created_at)}}</view>
 		</view>
 		<image class="img" v-if="news.img_url" mode="aspectFit" :src="news.img_url">
@@ -28,8 +28,8 @@
 			<view class="bottom">
 				<input type="text" v-model="commentText"></u-input>
 				<text @click="toComment">发送</text>
-				<u-icon :name="news.isCollected > 0 ? 'star-fill' : 'star'" color="#297999" size="20"
-					@click="toCollect"></u-icon>
+				<!-- <u-icon :name="news.isCollected > 0 ? 'star-fill' : 'star'" color="#297999" size="20"
+					@click="toCollect"></u-icon> -->
 				<!-- <u-icon :name="item.isCollected > 0 ? 'star-fill' : 'star'" color="#297999" size="20"
 									@click="toCollect(item)"></u-icon> -->
 			</view>
@@ -45,7 +45,8 @@
 		getUserInfo,
 		getPoints,
 		user_comment,
-		user_info
+		user_info,
+		collect_article
 	} from '@/common/request'
 	import {
 		TimestampToDate
@@ -57,7 +58,7 @@
 				commentText: '',
 				userInfo: {},
 				userId: '',
-				type:'',
+				type: '',
 				// follow:false,
 				message: {},
 				commentList: []
@@ -73,25 +74,35 @@
 			getTime(e) {
 				return TimestampToDate(e * 1000)
 			},
-			toCollect() {
-				if (this.news.isCollected == null) {
-					this.news.isCollected = '1'
-					updateUserAction('count_collect', 1)
-					getPoints('iscollect', 2)
-				} else this.news.isCollected = null
-				console.log(this.news);
-				if(this.type == 1){
-					let product = news.getWithoutData(this.news.id)
-					product.set('isCollected', this.news.isCollected)
-					product.update()
-				}
-				else{
-					let product = chat_circle.getWithoutData(this.news.id)
-					product.set('isCollected', this.news.isCollected)
-					product.update()
-				}
-			},
-			// toFollow() {
+			// toCollect() {
+			// 	if (this.news.isCollected == null) {
+			// 		this.news.isCollected = '1'
+			// 		updateUserAction('count_collect', 1)
+			// 		getPoints('iscollect', 2)
+			// 		let MyRecord = collect_article.create()
+			// 		if (this.type == 1) {
+			// 			MyRecord.set({
+			// 				...this.news,
+			// 				userId: this.userId
+			// 			})
+			// 			MyRecord.save()
+			// 		} else {
+			// 			chat_circle.find().then(res => {
+			// 				MyRecord.set({
+			// 					...res.data.objects,
+			// 					userId: this.userId
+			// 				})
+			// 				MyRecord.save()
+			// 			})
+			// 		}
+			// 	} else {
+			// 		this.news.isCollected = null
+					
+			// 	}
+			// 	console.log(this.news);
+
+			// },
+			// // toFollow() {
 			// 	this.follow = !this.follow
 			// 	let followList = this.userInfo.followed
 			// 	let index = followList.indexOf(this.news.userId)
@@ -146,7 +157,7 @@
 		onLoad(e) {
 			this.message = e
 			// console.log(e);
-			this.type =e.type
+			this.type = e.type
 			let newsId = e.id
 			query.queryObject.$and = []
 			query.contains('textId', newsId)
@@ -174,9 +185,10 @@
 	}
 
 	.articleDetail {
+		position: relative;
 		text-align: center;
 		height: 100%;
-
+		padding-bottom: 100rpx;
 		.title {
 			font-size: 40rpx;
 			font-weight: bold;
@@ -184,9 +196,10 @@
 		}
 
 		.time {
-			display: flex;
-			justify-content: space-around;
-			margin: 20rpx;
+			// display: flex;
+			// justify-content: space-around;
+			// margin: 20rpx;
+			text-align: center;
 			font-size: 24rpx;
 			color: #999;
 		}
@@ -204,8 +217,7 @@
 		}
 
 		.comment {
-			margin-top: 100rpx;
-
+			margin: 100rpx 0;
 			.comment-item {
 				margin: 20rpx 80rpx;
 				background-color: #fff;
@@ -231,7 +243,8 @@
 
 		.bottom {
 			display: flex;
-			position: sticky;
+			position: fixed;
+			width: 100%;
 			justify-content: space-around;
 			bottom: 0;
 			background-color: #e7f4f2;
@@ -240,6 +253,7 @@
 			input {
 				padding: 10rpx;
 				height: 40rpx;
+				width: 500rpx;
 				border-radius: 10rpx;
 				background-color: #fff;
 			}

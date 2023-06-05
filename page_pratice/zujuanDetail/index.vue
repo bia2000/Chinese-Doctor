@@ -9,7 +9,7 @@
 					<view class="question">
 						{{ item.question }}({{ item.score }}分)
 					</view>
-					<view class="" v-if="item.question_content.length > 20">{{ item.question_content }}
+					<view class="" v-if="item.question_content.length > 20"><text>{{ item.question_content }}</text>
 					</view>
 					<view class="" v-if="
               item.question_content.length > 10 &&
@@ -84,8 +84,8 @@
 			</u-cell-group>
 			<u-button class="" size="large" @click="isShow = false">取消</u-button>
 		</u-popup>
-		<u-modal :show="show2" title="提示" confirm-text="放入试卷库" cancel-text="导出试卷"
-			@confirm="setPaper" @cancel="exportPaper" showCancelButton>
+		<u-modal :show="show2" title="提示" confirm-text="放入试卷库" cancel-text="导出试卷" @confirm="setPaper"
+			@cancel="exportPaper" showCancelButton>
 			<input type="text" v-model="paperTitle" placeholder="请输入试卷标题">
 		</u-modal>
 	</view>
@@ -94,6 +94,7 @@
 <script>
 	import {
 		paper_user,
+		paper_public,
 		question_bank,
 		user_info,
 		updateuserInfo
@@ -115,7 +116,7 @@
 				show: false,
 				show2: false,
 				isAlive: true,
-				paperTitle:'',
+				paperTitle: '',
 				current: 0,
 				list: ['题目明细', '分数结构'],
 				today: Number(new Date()),
@@ -265,7 +266,8 @@
 				if (this.paper.length > 0) {
 					str3 = str.map((e) => {
 						var str1 = trimAll(e)
-						if (str1) var code1 = str1.match(/(?<=(content":")).*?(?=("))/g)
+						let r1 = new RegExp('(?<=(content":")).*?(?=("))','g')
+						if (str1) var code1 = str1.match(r1)
 						return code1
 					})
 				}
@@ -319,7 +321,7 @@
 				let idArr = this.idList
 				idArr.splice(index, 1)
 			},
-			updateData(){
+			updateData() {
 				let scoreList = []
 				this.paper.map((e) => {
 					let product = question_bank.getWithoutData(e.id)
@@ -328,24 +330,43 @@
 					product.update()
 					scoreList.push(e.score)
 				})
-				let paperUser = paper_user.create()
 				let userId = uni.getStorageSync('id')
-				paperUser.set({
-					user_id: userId,
-					question_set: this.idList,
-					score_paper: String(this.score_question),
-					question_set_score: scoreList,
-					name: this.paperTitle,
-				})
-				paperUser.save()
+				if (userId == '64646d1473e26ce437aeb672') {
+					let paperUser = paper_public.create()
+					paperUser.set({
+						user_id: userId,
+						question_set: this.idList,
+						score_paper: String(this.score_question),
+						question_set_score: scoreList,
+						name: this.paperTitle,
+					})
+					paperUser.save()
+				} else {
+					let paperUser = paper_user.create()
+					paperUser.set({
+						user_id: userId,
+						question_set: this.idList,
+						score_paper: String(this.score_question),
+						question_set_score: scoreList,
+						name: this.paperTitle,
+					})
+					paperUser.save()
+				}
 			},
-			setPaper(){
+			setPaper() {
+				if(this.paperTitle.length>1){
 				this.updateData()
 				uni.reLaunch({
-					url:'/pages/pratice/pratice'
+					url: '/pages/pratice/pratice'
 				})
+				}else{
+					uni.showToast({
+						icon:'none',
+						title:'请填写一个标题'
+					})
+				}
 			},
-			exportPaper(){
+			exportPaper() {
 				this.updateData()
 				this.show2 = false
 				this.isShow = true

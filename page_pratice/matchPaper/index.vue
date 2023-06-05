@@ -42,12 +42,12 @@ export default {
     this.randomList = list.split(',')
     this.randomList.map((e) => {
 			e = e.replace(/\"/g,'')
-			// console.log(e);
+			console.log(e);
       question_bank.get(e).then((res) => {
         this.paper.push(res.data)
       })
     })
-    // console.log(this.paper)
+    console.log(this.paper)
   },
 	onUnload:function(){
 		console.log(11111);

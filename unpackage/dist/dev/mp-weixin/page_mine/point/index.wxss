@@ -82,7 +82,6 @@
 }
 .point-detail.data-v-6db04f69 {
   margin-top: 60rpx;
-  margin-left: 80rpx;
   padding: 30rpx;
   width: 600rpx;
   text-align: right;
@@ -93,7 +92,7 @@
   justify-content: space-between;
 }
 .point-detail .text text.data-v-6db04f69 {
-  width: 150rpx;
+  width: 200rpx;
 }
 .point-detail .title.data-v-6db04f69 {
   font-weight: bold;

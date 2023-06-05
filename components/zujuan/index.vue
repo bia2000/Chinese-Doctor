@@ -67,7 +67,7 @@
             {{ item.question }}
           </view>
          <view class="" v-if="item.question_content.length > 20"
-            >{{ item.question_content }}
+            ><text>{{ item.question_content }}</text>
           </view>
          <view
             class=""
@@ -258,7 +258,9 @@ export default {
       if (this.bank.length > 0) {
         str3 = str.map((e) => {
           var str1 = trimAll(e)
-          if (str1) var code1 = str1.match(/(?<=(content":")).*?(?=("))/g)
+          let r1 = new RegExp('(?<=(content":")).*?(?=("))','g')
+
+          if (str1) var code1 = str1.match(r1)
           return code1
         })
       }

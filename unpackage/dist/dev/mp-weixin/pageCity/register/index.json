@@ -1,6 +1,7 @@
 {
   "navigationBarTitleText": "注册账号",
   "usingComponents": {
-    "u-input": "/node-modules/uview-ui/components/u-input/u-input"
+    "u-input": "/node-modules/uview-ui/components/u-input/u-input",
+    "u-alert": "/node-modules/uview-ui/components/u-alert/u-alert"
   }
 }

@@ -52,43 +52,25 @@
 			</view>
 			<view class="" v-if="current == '2'">
 				<zujuan :paper="paper" :keyword="key"></zujuan>
+
 			</view>
-			<view v-if="current == '3' && paperList.length > 0">
+			<view v-if="current == '3'">
 				<u-subsection :list="list2" mode="button" :current="current2" @change="change2" activeColor="#53A5D9">
 				</u-subsection>
 				<view class="box" v-if="current2 == 0">
-					<view class="boxItem" v-for="item in publicList" :key="item.id">
+					<view class="boxItem" v-for="item,index in publicList" :key="item.id">
 						<view class="">
 							<view class="title">
-								{{ item.name }}
-							</view>
-							<view class="icon">
-								<u-icon :name="item.isCollected > 0 ? 'star-fill' : 'star'" color="#297999" size="20"
-									@click="toCollect(item)"></u-icon>
-								<u-icon name="share" color="#299999" size="20"></u-icon>
+								{{ index }}
 							</view>
 						</view>
-						<view class="right" v-if="!item.flag">
+						<view class="right">
 							<!-- <view class=""> {{ item.score_paper }}分 </view> -->
 							<view class="btn" @click="
-                  $goBack(
-                    2,
-                    '/page_pratice/answerPaper/index?list=' +
-                      item.question_set +
-                      '&question_set_score=' +
-                      item.question_set_score +
-                      '&id=' +
-                      item.id+
-											'&type=4'
-                  )
-                ">
-								去答题
+                  $goBack(2,'/page_pratice/answerPaper/index?type=5&list='
+                      +encodeURIComponent(jsonObj(item)))">
+								添加至试卷库
 							</view>
-						</view>
-						<view class="right" v-if="item.flag">
-							<view class=""> {{ item.user_score }}分 </view>
-							<view class="btn"
-								@click="$goBack(2, '/page_pratice/paper/index?list=' + item.question_set)">去复习</view>
 						</view>
 					</view>
 				</view>
@@ -98,7 +80,6 @@
 							<view class="title">
 								{{ item.name }}
 							</view>
-							<!-- <view class="time">  </view> -->
 							<view class="icon">
 								<u-icon :name="item.isCollected > 0 ? 'star-fill' : 'star'" color="#297999" size="20"
 									@click="toCollect(item)"></u-icon>
@@ -106,7 +87,6 @@
 							</view>
 						</view>
 						<view class="right" v-if="!item.flag">
-							<!-- <view class=""> {{ item.score_paper }}分 </view> -->
 							<view class="btn" @click="
                   $goBack(
                     2,
@@ -115,7 +95,7 @@
                       '&question_set_score=' +
                       item.question_set_score +
                       '&id=' +
-                      item.id+'&type=3'
+                      item.id+'&type=3'+'&papertype='+item.paper_type
                   )
                 ">
 								去答题
@@ -124,7 +104,8 @@
 						<view class="right" v-if="item.flag">
 							<view class=""> {{ item.user_score }}分 </view>
 							<view class="btn"
-								@click="$goBack(2, '/page_pratice/paper/index?list=' + item.question_set)">去复习</view>
+								@click="$goBack(2, '/page_pratice/paper/index?list=' + item.question_set+'&answer='+item.question_set_answer+'&papertype='+item.paper_type)">
+								去复习</view>
 						</view>
 					</view>
 				</view>
@@ -137,6 +118,7 @@
 	import {
 		getRandomArrayElements,
 		TimestampToDate,
+		groupBy
 	} from 'pageCity/common/utils'
 	import {
 		getUserPaper,
@@ -144,6 +126,7 @@
 		user_info,
 		question_bank,
 		paper_user,
+		test_paper,
 		getPoints,
 		paper_public,
 		updateUserAction
@@ -240,6 +223,9 @@
 			time(e) {
 				return TimestampToDate(e)
 			},
+			jsonObj(e) {
+				return JSON.stringify(e)
+			},
 			change(index) {
 				this.current = index
 				this.getPaperlist()
@@ -254,18 +240,9 @@
 					updateUserAction('count_collect', 1)
 					getPoints('iscollect', 2)
 				} else item.isCollected = null
-				console.log(item);
-				if(this.current2 == '0'){
-					let product = paper_public.getWithoutData(item.id)
-					product.set('isCollected', item.isCollected)
-					product.update()
-				}
-				else{
-					let product = paper_user.getWithoutData(item.id)
-					product.set('isCollected', item.isCollected)
-					product.update()
-				} 		
-
+				let product = paper_user.getWithoutData(item.id)
+				product.set('isCollected', item.isCollected)
+				product.update()
 			},
 			getPaperlist() {
 				query.queryObject.$and = []
@@ -334,10 +311,14 @@
 			this.userInfo.num = await user_info.get(key).then((res) => {
 				return res.data.num_question
 			})
-			paper_public.find().then(res => {
-				this.publicList = res.data.objects
-				// console.log(res);
+			test_paper.limit(1000).find().then(res => {
+				let data1 = res.data.objects
+				this.publicList = groupBy(data1, 'paper_title')
 			})
+			// paper_public.find().then(res => {
+			// 	this.publicList = res.data.objects
+			// 	// console.log(res);
+			// })
 			query.queryObject.$and = []
 			user_info
 				.limit(10)

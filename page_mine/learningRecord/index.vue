@@ -25,8 +25,8 @@
 					</view>
 
 					<view class="right">
-						<view class=""> {{ item.score_paper }}分 </view>
-						<view class="btn" @click="$goBack(2, '/page_pratice/paper/index?list=' + item.question_set)">
+						<view class=""> {{ item.user_score }}分 </view>
+						<view class="btn" @click="$goBack(2, '/page_pratice/paper/index?list=' + item.question_set+'&answer='+item.question_set_answer+'&flag=1'+'&papertype='+item.paper_type)">
 							去复习
 						</view>
 					</view>
@@ -46,8 +46,8 @@
 						</view>
 			
 						<view class="right">
-							<view class=""> {{ item.score_paper }}分 </view>
-							<view class="btn" @click="$goBack(2, '/page_pratice/paper/index?list=' + item.question_set)">
+							<view class=""> {{ item.user_score }}分 </view>
+							<view class="btn" @click="$goBack(2, '/page_pratice/paper/index?list=' + item.question_set+'&answer='+item.question_set_answer+'&flag=1'+'&papertype='+item.paper_type)">
 								去复习
 							</view>
 						</view>

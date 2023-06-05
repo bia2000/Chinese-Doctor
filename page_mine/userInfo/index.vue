@@ -47,6 +47,7 @@
       :show="showBirthday"
       :value="birthday"
       mode="date"
+			min-date="196011"
       closeOnClickOverlay
       @confirm="birthdayConfirm"
       @cancel="birthdayClose"

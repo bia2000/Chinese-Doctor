@@ -47,4 +47,7 @@
   border-radius: 8rpx;
   text-align: center;
 }
+.checkbox.data-v-f5c13046 {
+  margin-top: 50rpx;
+}
 

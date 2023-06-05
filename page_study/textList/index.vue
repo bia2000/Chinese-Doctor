@@ -44,7 +44,8 @@ export default {
       let lesson = []
       if (this.message.length > 0) {
         this.message.sort(function (a, b) {
-          return a.index - b.index
+					// console.log(a._id);
+          return a._id - b._id
         })
         // this.message.sort((a, b) => a.lesson.localeCompare(b.lesson, 'zh')) //a~z 排序
         // console.log(this.message)

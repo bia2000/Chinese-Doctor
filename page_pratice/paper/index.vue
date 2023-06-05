@@ -12,7 +12,7 @@
         </view>
       </view>
       <view class="question_content" v-if="item.question_content.length > 20">
-        {{ item.question_content }}
+       <text>{{ item.question_content }}</text>
       </view>
       <!-- <view class="question_content" v-if="index == 13">
         {{ item.question_content }}
@@ -35,21 +35,25 @@
         {{ index + 1 + '.' + item.question }}
       </view>
       <view class="options" v-if="options.length>1">
-        <u-radio-group placement="column">
+        <u-radio-group placement="column" v-model="answer[index]">
           <u-radio
             v-for="(item,index1) in options[index]"
-            :name="options[index][index1]"
+            :name="opvalue[index1]"
             :label="options[index][index1]"
             :key="item.id"
             class="options-item"
           > </u-radio
         ></u-radio-group>
       </view>
-      <view class="" v-if="item.analysis">
-        <view class="analysis">
-          查看答案和解析<u-switch v-model="item.flag"></u-switch>
+			<view class="write" v-if="answer[index].length>3">
+				你的回答：{{answer[index]}}
+			</view>
+      <view class="analysis" v-if="item.analysis">
+        <view class="">
+					<text class="title">查看答案和解析</text>
+          <u-switch v-model="item.flag" v-if='!f1'></u-switch>
         </view>
-        <view class="" v-if="item.flag">
+        <view class="analysis-text" v-if="item.flag||f1">
           <view class=""> 答案：{{ item.answer }} </view>
           <view class=""> 解析：{{ item.analysis }} </view>
         </view>
@@ -77,8 +81,9 @@ export default {
     return {
       paper: [],
       option: [],
+			opvalue:['A','B','C','D'],
+			answer:[],
       f1: false,
-      f2: false,
     }
   },
   computed: {
@@ -131,7 +136,16 @@ export default {
       if (this.paper.length > 0) {
         str3 = str.map((e) => {
           var str1 = trimAll(e)
-          if (str1) var code1 = str1.match(/(?<=(content":")).*?(?=("))/g)
+          // let r1 = new RegExp('(?<=(content":")).*?(?=("))','g')
+          let r1 = new RegExp('content":"([^"]+)','g')
+            let r11 = new RegExp('content":"([^"]+)')
+          if (str1){
+            // var code1 = str1.match(r1)
+            let str11 = str1.match(r1)
+            var code1 = str11.map(e=>{
+              return e.match(r11)[1]
+            })
+          }
           return code1
         })
       }
@@ -147,8 +161,11 @@ export default {
 
   // 页面周期函数--监听页面加载
   onLoad(e) {
+		this.f1 =e.flag
+		console.log(e);
+		this.answer = e.answer.split(',')
     let list = e.list.split(',')
-    // console.log(list)
+		if(e.papertype==1){
     list.map((e) => {
       question_bank.get(e).then((res) => {
         this.option.push(res.data.options)
@@ -156,6 +173,13 @@ export default {
         // console.log(res.option)
       })
     })
+		}else{
+			test_paper.get(e).then((res) => {
+			  this.option.push(res.data.options)
+			  this.paper.push(res.data)
+			  // console.log(res.option)
+			})
+		}
     // uni.setNavigationBarTitle({
     //         title: this.paper[0].paper_title,
     //       })
@@ -193,6 +217,7 @@ export default {
 <style lang="scss" scoped>
 .paper {
   font-size: 27rpx;
+	// margin-bottom: 80rpx;
 }
 .title1 {
   font-size: 40rpx;
@@ -221,8 +246,18 @@ export default {
     padding: 10rpx;
   }
 }
+.write{
+	margin-top: 40rpx;
+}
 .analysis {
   margin: 20rpx;
+	.title{
+		font-weight: bold;
+		font-size: 30rpx;
+	}
+	.analysis-text{
+		color: skyblue;
+	}
 }
 // .audio {
 //   width: 140rpx;
